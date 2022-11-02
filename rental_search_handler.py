@@ -32,5 +32,10 @@ class RentalSearchHandler:
         return prices
 
     def get_place_links(self):
-        links = [link.get("href") for link in self.soup.find_all(name="a", class_="property-card-link")]
+        links = []
+        for link_tag in self.soup.find_all(name="a", class_="StyledPropertyCardDataArea-c11n-8-73-8__sc-yipmu-0"):
+            link = link_tag.get("href")
+            if not link.startswith("https"):
+                link = "https://www.zillow.com" + link
+            links.append(link)
         return links
